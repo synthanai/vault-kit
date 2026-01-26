@@ -1,0 +1,322 @@
+{
+    "overlay_id": "janazah",
+    "display_name": "Janazah Vault",
+    "version": "1.1.0",
+    "description": "Privacy-first coordination for Muslim families during times of loss",
+    "community": {
+        "tradition": "Islamic",
+        "denomination": "Sunni",
+        "fiqh_madhab": "general",
+        "note": "This overlay follows general Sunni practices. Specific madhab variations (Hanafi, Shafi'i, Maliki, Hanbali) may require adjustments."
+    },
+    "language": {
+        "primary": "en",
+        "heritage": [
+            "ar"
+        ],
+        "additional": [
+            "ur",
+            "ms",
+            "id",
+            "tr",
+            "bn"
+        ],
+        "rtl_languages": [
+            "ar",
+            "ur"
+        ],
+        "note": "Heritage languages honor the linguistic diversity of the global Muslim community"
+    },
+    "mode_durations": {
+        "CASUALTY": {
+            "default_days": 3,
+            "extended_days": 7,
+            "note": "The Prophet ﷺ permitted mourning for 3 days; extended for widow's iddah"
+        },
+        "POST": {
+            "default_days": 40,
+            "note": "Cultural practice; not obligatory"
+        }
+    },
+    "ritual_timeline": [
+        {
+            "phase": "notification",
+            "label": "Informing Loved Ones",
+            "label_ar": "إخطار الأحبة",
+            "time_after_passing": "immediately",
+            "duration_hours": 1,
+            "description": "Gently informing immediate family and close ones",
+            "guidance": "Recite 'Inna lillahi wa inna ilayhi raji'un' - Indeed, to Allah we belong and to Him we shall return"
+        },
+        {
+            "phase": "ghusl",
+            "label": "Ritual Washing",
+            "label_ar": "غُسل",
+            "time_after_passing": "as soon as possible",
+            "duration_hours": 2,
+            "required_roles": [
+                "ghusl_team"
+            ],
+            "description": "Washing of the deceased with dignity and care",
+            "sequence": [
+                "Begin with bismillah and intention",
+                "Wash with water and sidr (lotus leaf)",
+                "Final wash with water and camphor",
+                "Odd number of washes (3, 5, or 7)"
+            ],
+            "note": "Performed by same-gender family members or trained community volunteers"
+        },
+        {
+            "phase": "takfeen",
+            "label": "Shrouding",
+            "label_ar": "تكفين",
+            "time_after_passing": "after ghusl",
+            "duration_hours": 1,
+            "required_roles": [
+                "takfeen_team"
+            ],
+            "description": "Wrapping the deceased in white cloth with love and respect",
+            "details": {
+                "male": "Three white cloths (izaar, qamees, lifafah)",
+                "female": "Five cloths (izaar, qamees, khimar, lifafah, hizam)"
+            }
+        },
+        {
+            "phase": "salat_janazah",
+            "label": "Funeral Prayer",
+            "label_ar": "صلاة الجنازة",
+            "time_after_passing": "after shrouding",
+            "duration_hours": 1,
+            "required_roles": [
+                "imam"
+            ],
+            "description": "Congregational prayer seeking mercy and forgiveness for the departed",
+            "note": "A communal obligation (fard kifayah); if some perform it, obligation is lifted from all"
+        },
+        {
+            "phase": "burial",
+            "label": "Burial",
+            "label_ar": "دفن",
+            "time_after_passing": "same day if possible",
+            "duration_hours": 2,
+            "required_roles": [
+                "grave_preparation_team"
+            ],
+            "description": "Returning the departed to the earth with dignity",
+            "details": {
+                "direction": "Face towards the Qibla (Makkah)",
+                "depth": "Deep enough that scent does not emerge and animals cannot reach",
+                "talqeen": "Prompting with words of faith at burial (practice varies by madhab)"
+            }
+        },
+        {
+            "phase": "taziyah",
+            "label": "Condolence Period",
+            "label_ar": "تعزية",
+            "time_after_passing": "following burial",
+            "duration_days": 3,
+            "description": "Community offers condolences and support to the bereaved family",
+            "guidance": "Visitors bring food, offer prayers, and provide comfort. Family should not host or prepare meals.",
+            "note": "The Prophet ﷺ said: 'Prepare food for the family of Ja'far, for there has come to them that which preoccupies them'"
+        },
+        {
+            "phase": "iddah",
+            "label": "Widow's Waiting Period",
+            "label_ar": "عِدّة",
+            "applies_to": "widow",
+            "duration": "4 months and 10 days",
+            "description": "Sacred period for a widow to mourn and observe certain restrictions",
+            "note": "This is a Quranic obligation (2:234). Different from the general 3-day mourning period.",
+            "optional_in_overlay": true
+        },
+        {
+            "phase": "dhikr_gatherings",
+            "label": "Remembrance Gatherings",
+            "label_ar": "مجالس الذكر",
+            "time_after_passing": "varies",
+            "description": "Optional gatherings for Quran recitation and remembrance",
+            "variants": [
+                {
+                    "name": "Third Day",
+                    "label_ar": "الثالث",
+                    "practiced": "some communities"
+                },
+                {
+                    "name": "Seventh Day",
+                    "label_ar": "السابع",
+                    "practiced": "some communities"
+                },
+                {
+                    "name": "Fortieth Day",
+                    "label_ar": "الأربعين",
+                    "practiced": "cultural, varies"
+                }
+            ],
+            "scholarly_note": "Some scholars view fixed-day gatherings as cultural rather than Sunnah. The permissibility varies by madhab and local tradition."
+        }
+    ],
+    "roles": [
+        {
+            "id": "ghusl_team_male",
+            "label": "Ghusl Team (Brothers)",
+            "label_ar": "فريق الغسل - الإخوة",
+            "label_ur": "غسل ٹیم - بھائی",
+            "min_count": 2,
+            "max_count": 4,
+            "description": "Trained volunteers who perform the sacred washing for male deceased",
+            "sensitivity": "This is a deeply honored service. Volunteers should be trained, patient, and maintain complete confidentiality.",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "ghusl_team_female",
+            "label": "Ghusl Team (Sisters)",
+            "label_ar": "فريق الغسل - الأخوات",
+            "label_ur": "غسل ٹیم - بہنیں",
+            "min_count": 2,
+            "max_count": 4,
+            "description": "Trained volunteers who perform the sacred washing for female deceased",
+            "sensitivity": "This is a deeply honored service. Volunteers should be trained, patient, and maintain complete confidentiality.",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "takfeen_team",
+            "label": "Shrouding Team",
+            "label_ar": "فريق التكفين",
+            "min_count": 2,
+            "max_count": 4,
+            "description": "Volunteers who assist with wrapping the deceased in the burial shroud",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "grave_preparation_team",
+            "label": "Grave Preparation Team",
+            "label_ar": "فريق تجهيز القبر",
+            "min_count": 4,
+            "max_count": 8,
+            "description": "Volunteers who prepare the final resting place with care",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "pallbearers",
+            "label": "Those Who Carry",
+            "label_ar": "حاملو الجنازة",
+            "min_count": 4,
+            "max_count": 8,
+            "description": "Volunteers honored to carry the deceased to their final rest",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "meal_coordinator",
+            "label": "Meal Coordinator",
+            "label_ar": "منسق الطعام",
+            "min_count": 1,
+            "max_count": 2,
+            "description": "Coordinates meal delivery so the bereaved family need not cook or host",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "transport_support",
+            "label": "Transport Support",
+            "label_ar": "دعم النقل",
+            "min_count": 1,
+            "max_count": 4,
+            "description": "Provides transport for family members during this difficult time",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "announcement_coordinator",
+            "label": "Announcement Coordinator",
+            "label_ar": "منسق الإعلانات",
+            "min_count": 1,
+            "max_count": 1,
+            "description": "Manages respectful community announcements with family approval",
+            "plane_access": [
+                "ops",
+                "broadcast"
+            ]
+        }
+    ],
+    "donations": [
+        {
+            "id": "sadaqah",
+            "label": "Sadaqah (Charity)",
+            "label_ar": "صدقة",
+            "default": true,
+            "description": "General charitable donation, seeking reward for the departed's soul"
+        },
+        {
+            "id": "sadaqah_jariyah",
+            "label": "Sadaqah Jariyah (Ongoing Charity)",
+            "label_ar": "صدقة جارية",
+            "description": "Continuous benefit - such as a well, school, or masjid - whose reward continues after death"
+        },
+        {
+            "id": "fidyah",
+            "label": "Fidyah",
+            "label_ar": "فدية",
+            "description": "Compensation for missed obligatory fasts the departed was unable to make up"
+        },
+        {
+            "id": "kaffarah",
+            "label": "Kaffarah (Expiation)",
+            "label_ar": "كفارة",
+            "description": "Expiation for certain unfulfilled obligations"
+        },
+        {
+            "id": "burial_support",
+            "label": "Burial Support",
+            "label_ar": "دعم تكاليف الدفن",
+            "description": "Direct support for funeral and burial expenses"
+        }
+    ],
+    "providers": [
+        {
+            "id": "imam",
+            "label": "Imam",
+            "label_ar": "إمام",
+            "description": "Religious leader to lead the funeral prayer"
+        },
+        {
+            "id": "islamic_funeral_services",
+            "label": "Islamic Funeral Services",
+            "label_ar": "خدمات الجنازة الإسلامية",
+            "description": "Funeral services that honor Islamic requirements"
+        },
+        {
+            "id": "islamic_cemetery",
+            "label": "Islamic Cemetery",
+            "label_ar": "المقبرة الإسلامية",
+            "description": "Cemetery with Islamic burial section, graves facing Qibla"
+        }
+    ],
+    "content_pack": "janazah-sunni-v1",
+    "theme": {
+        "primary_color": "#1B5E20",
+        "secondary_color": "#4E342E",
+        "font_family_heritage": "Amiri, 'Noto Naskh Arabic', serif",
+        "design_note": "Colors chosen for dignity and calm; green represents Islam, brown represents earth"
+    },
+    "emotional_design": {
+        "tone": "warm, respectful, supportive",
+        "avoid": [
+            "clinical language",
+            "transactional framing",
+            "insensitive automation"
+        ],
+        "principle": "Every interaction should feel like guidance from a trusted elder"
+    }
+}
