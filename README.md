@@ -46,6 +46,12 @@ Every interaction is governed by five non-negotiable properties:
 │  VAULT CORE (Immutable Privacy Infrastructure)       │
 │  Planes • Modes • Approvals • Audit • Disclosure     │
 └─────────────────────────────────────────────────────┘
+
+### Agentic Integration (MCP)
+Vault-Kit exposes a **Privacy Sentinel** MCP Server:
+- **Tools**: `check_access(vault_id)`, `log_access(vault_id, success)`
+- **Resources**: `vault://audit/latest`
+- **Config**: Add `src/mcp/server.ts` to your Agent Client.
 ```
 
 ---
