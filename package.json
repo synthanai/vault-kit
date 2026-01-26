@@ -1,0 +1,43 @@
+{
+    "name": "@vault-kit/core",
+    "version": "0.1.0",
+    "description": "Privacy-first coordination protocol - Verified, Auditable, Unleakable, Limited, Traceable",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:invariants": "vitest run tests/invariants",
+        "lint": "eslint src --ext .ts",
+        "validate-overlay": "node scripts/validate-overlay.js"
+    },
+    "keywords": [
+        "privacy",
+        "coordination",
+        "crisis",
+        "community",
+        "vault"
+    ],
+    "author": "SYNTHAI",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/synthanai/vault-kit.git"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "typescript": "^5.3.0",
+        "vitest": "^1.0.0",
+        "eslint": "^8.55.0",
+        "@typescript-eslint/eslint-plugin": "^6.13.0",
+        "@typescript-eslint/parser": "^6.13.0"
+    },
+    "dependencies": {
+        "ajv": "^8.12.0",
+        "zod": "^3.22.0"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
