@@ -413,3 +413,147 @@ test('large aggregation requires approval', async () => {
 | **1** | Agent role, token-per-task, basic rate limits | MVP |
 | **2** | Q&A Boundary, inference barrier, Audit AI | v1.1 |
 | **3** | Federated AI, differential privacy, crypto proofs | v2.0 |
+
+---
+
+## Swarm Coordination Invariants
+
+> *"Swarms scale capability and blast radius simultaneously."*
+
+These invariants govern multi-agent swarm coordination, as implemented in the SWARM-RESOLVE protocol (DMG extension).
+
+### Swarm Threat Model
+
+| Threat | Example | Mitigation |
+|--------|---------|------------|
+| Recursive Explosion | Agent spawns agents → infinite loop | Depth cap (INV-SWARM-01) |
+| Budget Runaway | 100 parallel agents burn $1000 | Budget ceiling (INV-SWARM-02) |
+| Cascade Failure | One agent error kills entire swarm | Blast radius isolation (INV-SWARM-03) |
+| Zombie Swarm | Terminated swarm keeps running | Kill switch (INV-SWARM-04) |
+| Orphan Audit | SubAgent actions lost from parent record | Audit merge (INV-SWARM-05) |
+| Cross-Contamination | Agent reads sibling's private context | Context isolation (INV-SWARM-06) |
+| RAMP Bypass | SubAgent makes high-stakes decision autonomously | Human gate (INV-SWARM-07) |
+
+### Swarm Invariant Table
+
+| ID | Invariant | Test Strategy |
+|----|-----------|---------------|
+| **INV-SWARM-01** | SubAgents MUST NOT spawn at depth > 3 | Recursion test: reject spawn at depth 4 |
+| **INV-SWARM-02** | Total swarm cost MUST NOT exceed pre-approved budget | Budget test: terminate at threshold |
+| **INV-SWARM-03** | Failed SubAgent MUST NOT cascade to siblings | Isolation test: sibling continues after failure |
+| **INV-SWARM-04** | Coordinator MUST terminate all SubAgents within 5s | Kill switch test: verify complete termination |
+| **INV-SWARM-05** | All SubAgent MOMENT logs MUST link to parent MomentID | Audit test: verify parent_moment_id on all events |
+| **INV-SWARM-06** | SubAgent MUST NOT read sibling SubAgent context | Isolation test: reject cross-agent context access |
+| **INV-SWARM-07** | RAMP 4+ decisions within SubAgents MUST escalate to Coordinator | Governance test: verify escalation |
+
+### INV-SWARM-01: Depth Cap
+
+**Statement**: SubAgents cannot spawn at recursion depth greater than 3.
+
+**Implementation**:
+- `SubAgent.depth` field tracks recursion level
+- Spawn request validates `parent.depth + 1 <= MAX_DEPTH`
+- Coordinator depth = 0; max SubAgent depth = 3
+
+**Test**:
+```python
+async def test_depth_cap_enforced():
+    coordinator = SwarmCoordinator(goal="test")
+    
+    # Simulate deep recursion
+    agent_d1 = SubAgent(agent_id="d1", task_id="t1", depth=1)
+    agent_d2 = SubAgent(agent_id="d2", task_id="t2", depth=2, parent_agent_id="d1")
+    agent_d3 = SubAgent(agent_id="d3", task_id="t3", depth=3, parent_agent_id="d2")
+    
+    # Attempt depth 4 - should fail
+    with pytest.raises(DepthExceededError):
+        agent_d4 = SubAgent(agent_id="d4", task_id="t4", depth=4, parent_agent_id="d3")
+```
+
+### INV-SWARM-04: Kill Switch
+
+**Statement**: Coordinator must be able to terminate all SubAgents within 5 seconds.
+
+**Implementation**:
+- `SwarmCoordinator.trigger_kill_switch()` sets termination flag
+- All active SubAgents check flag before each operation
+- Background timeout enforces 5-second deadline
+
+**Test**:
+```python
+async def test_kill_switch_terminates_all():
+    coordinator = SwarmCoordinator(goal="test")
+    
+    # Spawn multiple agents
+    for i in range(5):
+        coordinator.spawn_agent(f"task-{i}")
+    
+    # Trigger kill switch
+    start = time.time()
+    coordinator.trigger_kill_switch()
+    await coordinator._terminate_all()
+    elapsed = time.time() - start
+    
+    assert elapsed < 5.0
+    assert all(a.status == SubAgentStatus.TERMINATED for a in coordinator.sub_agents.values())
+```
+
+### INV-SWARM-05: Audit Merge
+
+**Statement**: All SubAgent MOMENT logs must be linked to parent MomentID.
+
+**Implementation**:
+- Swarm has `parent_moment_id` field
+- Each SubAgent action creates event with `parent_moment_id` reference
+- Synthesis phase merges all events into parent MOMENT
+
+**Test**:
+```python
+async def test_audit_events_linked_to_parent():
+    coordinator = SwarmCoordinator(
+        goal="test",
+        parent_moment_id="moment-abc123"
+    )
+    
+    await coordinator.run()
+    
+    # All events should reference parent
+    for event in coordinator.events:
+        assert "swarm_id" in event
+    
+    # DMG export should include parent link
+    dmg_swarm = coordinator.to_dmg_swarm()
+    assert dmg_swarm["parent_moment_id"] == "moment-abc123"
+```
+
+### SWARM-RESOLVE Protocol Lifecycle
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    SWARM-RESOLVE LOOP                         │
+├──────────────────────────────────────────────────────────────┤
+│  1. DECOMPOSE   │  Break goal into TaskGraph                 │
+│  2. SPAWN       │  Create SubAgents for ready tasks          │
+│  3. MONITOR     │  Watch for completion/failure/budget       │
+│  4. COLLECT     │  Gather outputs from completed SubAgents   │
+│  5. UNBLOCK     │  Mark downstream tasks as ready            │
+│  6. SYNTHESIZE  │  Merge outputs when all tasks done         │
+│  7. GOVERN      │  Apply RAMP checks to final synthesis      │
+├──────────────────────────────────────────────────────────────┤
+│  INVARIANT CHECKPOINTS:                                       │
+│  • INV-SWARM-02 checked before each SPAWN                    │
+│  • INV-SWARM-03 enforced in COLLECT (isolation)              │
+│  • INV-SWARM-07 enforced in GOVERN (escalation)              │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Integration with RESOLVE
+
+Each SubAgent runs its own RESOLVE loop:
+- **RECON** → **ENRICH** → **SPAR** → **OKAY** → **LAUNCH** → **VERIFY** → **ENCODE**
+
+The Swarm layer wraps this, adding:
+- Parallel execution (multiple SubAgents)
+- Dependency enforcement (TaskGraph)
+- Budget tracking (INV-SWARM-02)
+- Audit consolidation (INV-SWARM-05)
