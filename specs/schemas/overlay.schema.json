@@ -1,0 +1,271 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://crisivault.org/schemas/overlay.json",
+    "title": "CrisisVault Community Overlay",
+    "description": "Schema for community-specific overlay configurations",
+    "type": "object",
+    "required": [
+        "overlay_id",
+        "display_name",
+        "version",
+        "language",
+        "mode_durations"
+    ],
+    "properties": {
+        "overlay_id": {
+            "type": "string",
+            "pattern": "^[a-z]+-[a-z]+$",
+            "description": "Unique identifier for the overlay (e.g., muslim-sunni, jewish-orthodox)",
+            "examples": [
+                "muslim-sunni",
+                "jewish-orthodox",
+                "hindu-shaivite",
+                "christian-catholic",
+                "secular"
+            ]
+        },
+        "display_name": {
+            "type": "string",
+            "description": "Human-readable name for the deployment",
+            "examples": [
+                "Janazah Vault",
+                "Shiva Vault",
+                "Antyesti Vault"
+            ]
+        },
+        "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+            "description": "Semantic version of overlay",
+            "examples": [
+                "1.0.0"
+            ]
+        },
+        "language": {
+            "type": "object",
+            "required": [
+                "primary"
+            ],
+            "properties": {
+                "primary": {
+                    "type": "string",
+                    "pattern": "^[a-z]{2}$",
+                    "description": "Primary UI language (ISO 639-1)"
+                },
+                "heritage": {
+                    "type": "string",
+                    "pattern": "^[a-z]{2}$",
+                    "description": "Heritage language for cultural content"
+                },
+                "rtl": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Right-to-left text direction"
+                }
+            }
+        },
+        "mode_durations": {
+            "type": "object",
+            "required": [
+                "CASUALTY"
+            ],
+            "properties": {
+                "CASUALTY": {
+                    "type": "object",
+                    "required": [
+                        "default_days"
+                    ],
+                    "properties": {
+                        "default_days": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 30,
+                            "description": "Default duration of CASUALTY mode"
+                        },
+                        "extended_days": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 60,
+                            "description": "Extended duration if requested"
+                        }
+                    }
+                },
+                "POST": {
+                    "type": "object",
+                    "properties": {
+                        "default_days": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 90
+                        }
+                    }
+                }
+            }
+        },
+        "ritual_timeline": {
+            "type": "array",
+            "description": "Ordered phases of the mourning/ritual period",
+            "items": {
+                "type": "object",
+                "required": [
+                    "phase",
+                    "label"
+                ],
+                "properties": {
+                    "phase": {
+                        "type": "string",
+                        "description": "Machine-readable phase identifier"
+                    },
+                    "label": {
+                        "type": "string",
+                        "description": "Human-readable phase label"
+                    },
+                    "hours_from_death": {
+                        "type": "number",
+                        "minimum": 0,
+                        "description": "Hours from death when phase typically begins"
+                    },
+                    "duration_hours": {
+                        "type": "number",
+                        "minimum": 0,
+                        "description": "Typical duration of phase in hours"
+                    },
+                    "required_roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Role IDs required for this phase"
+                    }
+                }
+            }
+        },
+        "roles": {
+            "type": "array",
+            "description": "Community-specific volunteer role definitions",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "label"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "pattern": "^[a-z_]+$",
+                        "description": "Machine-readable role identifier"
+                    },
+                    "label": {
+                        "type": "string",
+                        "description": "Human-readable role name"
+                    },
+                    "label_heritage": {
+                        "type": "string",
+                        "description": "Role name in heritage language"
+                    },
+                    "min_count": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": "Minimum volunteers needed for this role"
+                    },
+                    "max_count": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "description": "Maximum volunteers for this role"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description of role responsibilities"
+                    },
+                    "plane_access": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "ops",
+                                "broadcast"
+                            ]
+                        },
+                        "description": "Which planes this role can access (never PII or Vault)"
+                    }
+                }
+            }
+        },
+        "donations": {
+            "type": "array",
+            "description": "Community-specific donation/charity categories",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "label"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "label_heritage": {
+                        "type": "string"
+                    },
+                    "default": {
+                        "type": "boolean",
+                        "description": "Whether this is the default donation type"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "providers": {
+            "type": "array",
+            "description": "Professional service provider categories",
+            "items": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "label"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "label_heritage": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "content_pack": {
+            "type": "string",
+            "description": "Reference to content library (prayers, chants, etc.)"
+        },
+        "theme": {
+            "type": "object",
+            "description": "UI theme customizations",
+            "properties": {
+                "primary_color": {
+                    "type": "string",
+                    "pattern": "^#[0-9a-fA-F]{6}$"
+                },
+                "font_family_heritage": {
+                    "type": "string",
+                    "description": "Font family for heritage language text"
+                },
+                "logo_url": {
+                    "type": "string",
+                    "format": "uri"
+                }
+            }
+        }
+    }
+}

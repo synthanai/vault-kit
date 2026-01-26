@@ -1,0 +1,252 @@
+{
+    "overlay_id": "muslim-sunni",
+    "display_name": "Janazah Vault",
+    "version": "1.0.0",
+    "description": "Privacy-first crisis coordination for Muslim (Sunni) communities",
+    "language": {
+        "primary": "en",
+        "heritage": "ar",
+        "rtl": true
+    },
+    "mode_durations": {
+        "CASUALTY": {
+            "default_days": 3,
+            "extended_days": 7
+        },
+        "POST": {
+            "default_days": 40
+        }
+    },
+    "ritual_timeline": [
+        {
+            "phase": "notification",
+            "label": "Death Notification",
+            "label_heritage": "الإخطار",
+            "hours_from_death": 0,
+            "duration_hours": 1,
+            "description": "Notify immediate family and trustees"
+        },
+        {
+            "phase": "ghusal",
+            "label": "Ritual Washing",
+            "label_heritage": "غسل",
+            "hours_from_death": 0,
+            "duration_hours": 2,
+            "required_roles": [
+                "ghusal_team"
+            ],
+            "description": "Washing of the deceased according to Islamic tradition"
+        },
+        {
+            "phase": "kafan",
+            "label": "Shrouding",
+            "label_heritage": "كفن",
+            "hours_from_death": 2,
+            "duration_hours": 1,
+            "required_roles": [
+                "kafan_team"
+            ],
+            "description": "Wrapping the deceased in white cloth"
+        },
+        {
+            "phase": "salat_janazah",
+            "label": "Funeral Prayer",
+            "label_heritage": "صلاة الجنازة",
+            "hours_from_death": 4,
+            "duration_hours": 1,
+            "required_roles": [
+                "imam"
+            ],
+            "description": "Congregational funeral prayer"
+        },
+        {
+            "phase": "burial",
+            "label": "Burial",
+            "label_heritage": "دفن",
+            "hours_from_death": 6,
+            "duration_hours": 2,
+            "required_roles": [
+                "grave_diggers"
+            ],
+            "description": "Burial in Islamic cemetery"
+        },
+        {
+            "phase": "iddah",
+            "label": "Mourning Period",
+            "label_heritage": "عدة",
+            "hours_from_death": 8,
+            "duration_hours": 72,
+            "description": "Three-day period of mourning and condolence visits"
+        },
+        {
+            "phase": "arbaeen",
+            "label": "Forty Days",
+            "label_heritage": "أربعين",
+            "hours_from_death": 960,
+            "duration_hours": null,
+            "description": "Memorial gathering at 40 days (optional in some traditions)"
+        }
+    ],
+    "roles": [
+        {
+            "id": "ghusal_team_male",
+            "label": "Male Ghusal Team",
+            "label_heritage": "فريق غسل الرجال",
+            "min_count": 2,
+            "max_count": 4,
+            "description": "Volunteers trained in ritual washing for male deceased",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "ghusal_team_female",
+            "label": "Female Ghusal Team",
+            "label_heritage": "فريق غسل النساء",
+            "min_count": 2,
+            "max_count": 4,
+            "description": "Volunteers trained in ritual washing for female deceased",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "kafan_team",
+            "label": "Kafan Team",
+            "label_heritage": "فريق الكفن",
+            "min_count": 2,
+            "max_count": 4,
+            "description": "Volunteers for shrouding",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "grave_diggers",
+            "label": "Grave Preparation",
+            "label_heritage": "حفار القبور",
+            "min_count": 4,
+            "max_count": 8,
+            "description": "Volunteers for grave digging and preparation",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "pallbearers",
+            "label": "Pallbearers",
+            "label_heritage": "حاملو النعش",
+            "min_count": 4,
+            "max_count": 8,
+            "description": "Volunteers to carry the deceased",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "meal_coordinator",
+            "label": "Meal Coordinator",
+            "label_heritage": "منسق الطعام",
+            "min_count": 1,
+            "max_count": 2,
+            "description": "Coordinates meal delivery for mourning family",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "transport_volunteer",
+            "label": "Transport Volunteer",
+            "label_heritage": "متطوع النقل",
+            "min_count": 1,
+            "max_count": 4,
+            "description": "Provides transport for family members",
+            "plane_access": [
+                "ops"
+            ]
+        },
+        {
+            "id": "broadcast_manager",
+            "label": "Announcement Manager",
+            "label_heritage": "مدير الإعلانات",
+            "min_count": 1,
+            "max_count": 1,
+            "description": "Manages public announcements and updates",
+            "plane_access": [
+                "ops",
+                "broadcast"
+            ]
+        }
+    ],
+    "donations": [
+        {
+            "id": "sadaqah",
+            "label": "Sadaqah",
+            "label_heritage": "صدقة",
+            "default": true,
+            "description": "General charitable donation on behalf of the deceased"
+        },
+        {
+            "id": "sadaqah_jariyah",
+            "label": "Sadaqah Jariyah",
+            "label_heritage": "صدقة جارية",
+            "description": "Continuous charity (well, school, etc.)"
+        },
+        {
+            "id": "fidyah",
+            "label": "Fidyah",
+            "label_heritage": "فدية",
+            "description": "Compensation for missed fasts"
+        },
+        {
+            "id": "kaffarah",
+            "label": "Kaffarah",
+            "label_heritage": "كفارة",
+            "description": "Expiation payment"
+        },
+        {
+            "id": "burial_costs",
+            "label": "Burial Costs",
+            "label_heritage": "تكاليف الدفن",
+            "description": "Direct contribution to funeral expenses"
+        }
+    ],
+    "providers": [
+        {
+            "id": "imam",
+            "label": "Imam",
+            "label_heritage": "إمام",
+            "description": "Islamic religious leader to lead prayers"
+        },
+        {
+            "id": "funeral_home_islamic",
+            "label": "Islamic Funeral Home",
+            "label_heritage": "دار الجنائز الإسلامية",
+            "description": "Funeral home with Islamic services"
+        },
+        {
+            "id": "cemetery_islamic",
+            "label": "Islamic Cemetery",
+            "label_heritage": "المقبرة الإسلامية",
+            "description": "Cemetery with Islamic burial section"
+        }
+    ],
+    "content_pack": "islamic-sunni-v1",
+    "theme": {
+        "primary_color": "#2E7D32",
+        "font_family_heritage": "Amiri, 'Noto Naskh Arabic', serif"
+    },
+    "workflows": [
+        {
+            "id": "first_24_hours",
+            "label": "First 24 Hours Checklist",
+            "tasks": [
+                "Notify immediate family",
+                "Contact ghusal team",
+                "Arrange burial plot",
+                "Schedule salat janazah",
+                "Notify mosque community (broadcast)"
+            ]
+        }
+    ]
+}
