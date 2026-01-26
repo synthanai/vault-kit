@@ -1,22 +1,23 @@
 # VAULT-KIT
 
-> **V**erified · **A**uditable · **U**nleakable · **L**imited · **T**raceable
+> **Verified · Auditable · Unleakable · Limited · Traceable**  
+> *Built to reveal less while helping more.*
 
-*Built to reveal less while helping more.*
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 ---
 
-Privacy-first coordination for communities during times of crisis. VAULT-KIT provides the engine; communities provide the soul.
+## What is VAULT-KIT?
 
-## Why VAULT-KIT?
+**VAULT-KIT** is the **Privacy Protocol** for crisis coordination.
+It bridges the gap between privacy and utility:
 
-When crisis strikes — especially death — families face:
-- **Information chaos**: scattered documents, unknown contacts
-- **Coordination overload**: volunteers need direction; family is overwhelmed  
-- **Privacy violations**: PII shared too widely, screenshots forwarded
-- **Shadow channels**: when tools fail privacy, people bypass to WhatsApp
+- 🛡️ **Unleakable** — Plane separation
+- 🔍 **Auditable** — Hash-chained logs
+- ⚡ **Coordinated** — Role-based access
+- ❤️ **Human** — Community overlays
 
-**VAULT-KIT bridges the gap**: coordinate help while revealing less.
+---
 
 ## The VAULT Properties
 
@@ -29,6 +30,8 @@ Every interaction is governed by five non-negotiable properties:
 | **U** | Unleakable | Plane separation, no cross-plane access |
 | **L** | Limited | Bounded disclosure, no bulk export |
 | **T** | Traceable | Origin visible, revocation tracked |
+
+---
 
 ## Architecture
 
@@ -45,6 +48,8 @@ Every interaction is governed by five non-negotiable properties:
 └─────────────────────────────────────────────────────┘
 ```
 
+---
+
 ## Quick Start
 
 ```bash
@@ -55,45 +60,9 @@ git clone https://github.com/synthanai/vault-kit.git
 cat examples/janazah/overlay.json
 ```
 
-## Community Examples
-
-VAULT-KIT includes reference implementations for different communities:
-
-| Example | Community | Status |
-|---------|-----------|--------|
-| [Janazah](examples/janazah/) | Muslim | ✅ Reference |
-| Shiva | Jewish | 📝 Planned |
-| Antyesti | Hindu | 📝 Planned |
-| Parish | Christian | 📝 Planned |
-
-Each example contains:
-- `overlay.json` — Community configuration
-- `content/` — Prayers, checklists, guidance
-- `templates/` — Announcement templates
-- `i18n/` — Translations
-
-## Documentation
-
-- [Manifesto](docs/manifesto.md) — Philosophy and doctrine
-- [Three-Layer Architecture](docs/architecture/three-layer-overview.md)
-- [Invariants](docs/governance/invariants.md) — Non-negotiable properties (human + AI era)
-- [Overlay Schema](specs/schemas/overlay.schema.json) — JSON schema for examples
-
-## Contributing
-
-VAULT-KIT handles the most sensitive moments in human life. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
-
-We especially welcome:
-- Corrections from religious scholars
-- Translations to additional languages
-- New community implementations
-- Accessibility improvements
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
 ---
 
-## 🆓 OSS vs 💎 Platform
+## The Open Protocol
 
 **VAULT-Kit is the open protocol. ARANGAM provides managed infrastructure.**
 
@@ -105,18 +74,25 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 | **Hosted VAULT Infrastructure** | ❌ | ✅ Managed hosting |
 | **Multi-Community Dashboard** | ❌ | ✅ |
 | **Compliance + Audit Trails** | ❌ | ✅ Enterprise |
-| **Priority Support** | ❌ | ✅ |
 
-> **The protocol is free. The infrastructure is premium.**
+> *The protocol is free. The infrastructure is premium.*
 
 See [ATTRIBUTION.md](ATTRIBUTION.md) for attribution guidelines.
 
+---
+
 ## License
 
-Apache 2.0
+Apache 2.0 — see [LICENSE](LICENSE).
 
 ---
 
-> *"VAULT-KIT is not built to store more. It is built to reveal less — while helping more."*
+## The SYNTHAI Ecosystem
 
-Part of the [SYNTHAI](https://github.com/synthanai) ecosystem
+| Component | Role |
+| :--- | :--- |
+| **[Decision Moment Graph](https://github.com/synthanai/decision-moment-graph)** | The **Standard** for reversible, auditable decisions. |
+| **[VAULT-KIT](https://github.com/synthanai/vault-kit)** | The **Protocol** for privacy-first coordination. |
+| **[agentic-kit](https://github.com/synthanai/agentic-kit)** | The **Infrastructure** for reliable agent systems. |
+
+> *Built by [SYNTHAI](https://synthai.tech) — Decision Intelligence for the AI Era.*
