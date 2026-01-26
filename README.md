@@ -91,6 +91,26 @@ We especially welcome:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
+---
+
+## 🆓 OSS vs 💎 Platform
+
+**VAULT-Kit is the open protocol. ARANGAM provides managed infrastructure.**
+
+| What You Get | VAULT-Kit (OSS) | ARANGAM Platform |
+|--------------|-----------------|------------------|
+| 3-Layer Architecture | ✅ Full protocol | ✅ |
+| Community Overlays | ✅ DIY implementation | ✅ |
+| Privacy Invariants | ✅ | ✅ |
+| **Hosted VAULT Infrastructure** | ❌ | ✅ Managed hosting |
+| **Multi-Community Dashboard** | ❌ | ✅ |
+| **Compliance + Audit Trails** | ❌ | ✅ Enterprise |
+| **Priority Support** | ❌ | ✅ |
+
+> **The protocol is free. The infrastructure is premium.**
+
+See [ATTRIBUTION.md](ATTRIBUTION.md) for attribution guidelines.
+
 ## License
 
 Apache 2.0
