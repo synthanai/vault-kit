@@ -251,3 +251,165 @@ Invariant violations in production trigger immediate alerts:
 - PagerDuty for INV-01, INV-02, INV-04
 - DataDog dashboard for all invariants
 - Quarterly audit review
+
+---
+
+## AI-Era Invariants
+
+> *"Inference is the new exfiltration."*
+
+The human-era invariants (INV-01 to INV-08) remain in force. The AI-era extends them for autonomous agents, LLMs, and automated systems.
+
+### The AI Threat Model
+
+| Threat | Example | Mitigation |
+|--------|---------|------------|
+| LLM Inference | AI infers illness from meal schedules | Aggregation limits |
+| Agent Impersonation | AI extracts data on behalf of user | Token-per-task |
+| Deepfake Auth | Voice clone passes verification | Liveness + MFA |
+| Shadow AI | Volunteer pastes PII into ChatGPT | Watermarking |
+| Consent Laundering | Agent persists data after grant expires | No persistent sessions |
+
+### AI-Era Invariant Table
+
+| ID | Invariant | Test Strategy |
+|----|-----------|---------------|
+| **INV-AI-01** | AI agents cannot access PII plane directly | Gateway test: reject PII calls from agent tokens |
+| **INV-AI-02** | Agent tokens expire after single task (no persistent sessions) | Token test: reject reuse |
+| **INV-AI-03** | All AI actions log: principal, agent model, intent | Audit test: verify all fields |
+| **INV-AI-04** | Aggregation queries >N items require escalated approval | Query test: reject large aggregates |
+| **INV-AI-05** | AI-generated content is watermarked | Content test: verify watermark presence |
+| **INV-AI-06** | Biometric auth requires liveness check + MFA | Auth test: reject replay attacks |
+| **INV-AI-07** | Default AI processing tier is 0 (none) | Config test: verify default |
+
+### Extended VAULT Properties (AI-Era)
+
+| Letter | Property | Human Era | AI Era Extension |
+|:------:|----------|-----------|------------------|
+| **V** | Verified | Step-up auth | + Agent attestation, principal binding, liveness |
+| **A** | Auditable | Action log | + Intent log, model version, causal chain |
+| **U** | Unleakable | Plane separation | + Inference barrier, aggregation limits |
+| **L** | Limited | Bounded disclosure | + Purpose binding, token-per-task, Q&A boundary |
+| **T** | Traceable | Hash chain | + Principal→Agent→Action trace |
+
+### Agent Gateway Architecture
+
+```
+┌────────────────────────────────────────────────────┐
+│  HUMAN PRINCIPALS                                   │
+│  Owner │ Trustee │ Volunteer                       │
+│     │       │         │                             │
+│     ▼       ▼         ▼                             │
+│  ┌────────────────────────────────────────┐        │
+│  │  AGENT GATEWAY                         │        │
+│  │  • Principal binding (who delegated)   │        │
+│  │  • Token-per-task (no persistence)     │        │
+│  │  • Intent logging (why acting)         │        │
+│  │  • Rate limiting (aggregation cap)     │        │
+│  └────────────────────────────────────────┘        │
+│                     │                               │
+│                     ▼                               │
+│  ┌────────────────────────────────────────┐        │
+│  │  Q&A BOUNDARY                          │        │
+│  │  AI gets: specific answers             │        │
+│  │  AI never gets: raw documents          │        │
+│  └────────────────────────────────────────┘        │
+├────────────────────────────────────────────────────┤
+│  VAULT CORE (Human-era invariants unchanged)       │
+└────────────────────────────────────────────────────┘
+```
+
+### Consent Tiers
+
+| Tier | AI Access | Requires |
+|:----:|-----------|----------|
+| **0** | None (human only) | Default — no override needed |
+| **1** | Summarization (no storage) | Owner explicit consent |
+| **2** | Bounded assistance (session-only) | Owner + 1 trustee |
+| **3** | Automation (principal-supervised) | 2-of-3 trustees |
+
+### INV-AI-01: No Direct PII Access for Agents
+
+**Statement**: AI agents cannot access PII plane directly; only via human-in-the-loop.
+
+**Implementation**:
+- Agent tokens have `actor_type: 'agent'` claim
+- PII plane middleware rejects all agent tokens
+- Human must request on behalf, then relay
+
+**Test**:
+```typescript
+test('agent token rejected at PII endpoint', async () => {
+  const agentToken = await mintAgentToken({
+    principal: 'owner@example.com',
+    model: 'gpt-4',
+    intent: 'summarize burial preferences'
+  });
+  
+  const response = await api.get('/pii/contact_details', {
+    headers: { Authorization: agentToken }
+  });
+  
+  expect(response.status).toBe(403);
+  expect(response.body.error).toBe('AGENT_PII_FORBIDDEN');
+});
+```
+
+### INV-AI-02: Token-Per-Task
+
+**Statement**: Agent tokens expire after single task; no persistent agent sessions.
+
+**Implementation**:
+- Agent tokens have `max_uses: 1`
+- Token is invalidated after first use
+- No refresh tokens for agents
+
+**Test**:
+```typescript
+test('agent token cannot be reused', async () => {
+  const agentToken = await mintAgentToken({ ... });
+  
+  // First use succeeds
+  const response1 = await api.get('/ops/tasks', {
+    headers: { Authorization: agentToken }
+  });
+  expect(response1.status).toBe(200);
+  
+  // Second use fails
+  const response2 = await api.get('/ops/tasks', {
+    headers: { Authorization: agentToken }
+  });
+  expect(response2.status).toBe(401);
+  expect(response2.body.error).toBe('TOKEN_EXHAUSTED');
+});
+```
+
+### INV-AI-04: Aggregation Limits
+
+**Statement**: Aggregation queries >N items require escalated approval.
+
+**Implementation**:
+- Query parser detects aggregate operations
+- If result set > N (default: 10), require 2-of-3 approval
+- Rate limiting on sequential single-item queries
+
+**Test**:
+```typescript
+test('large aggregation requires approval', async () => {
+  const response = await api.get('/ops/tasks?limit=100', {
+    headers: { Authorization: agentToken }
+  });
+  
+  expect(response.status).toBe(403);
+  expect(response.body.error).toBe('AGGREGATION_LIMIT');
+  expect(response.body.requires).toBe('2-of-3 APPROVAL');
+});
+```
+
+### Implementation Phases
+
+| Phase | Features | Target |
+|:-----:|----------|--------|
+| **1** | Agent role, token-per-task, basic rate limits | MVP |
+| **2** | Q&A Boundary, inference barrier, Audit AI | v1.1 |
+| **3** | Federated AI, differential privacy, crypto proofs | v2.0 |
