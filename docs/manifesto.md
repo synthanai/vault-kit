@@ -1,6 +1,10 @@
-# CrisisVault Manifesto
+# VAULT-KIT Manifesto
 
-> **Privacy-First Crisis Coordination Protocol**
+> **V**erified · **A**uditable · **U**nleakable · **L**imited · **T**raceable
+
+*Built to reveal less while helping more.*
+
+---
 
 ## The Promise
 
