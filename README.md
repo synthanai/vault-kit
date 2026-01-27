@@ -64,6 +64,22 @@ Vault-Kit powers the **ZK-Dissent** pattern for the [Decision Moment Standard (D
 
 See [DMS Core Spec §4.3](../decision-moment-standard/spec/DMS_CORE_SPEC_v0.2.md) for details.
 
+### New Modules (Jan 2026)
+
+| Module | Path | Purpose |
+|--------|------|---------|
+| **GAUGE Integration** | `src/gauge.js` | 100% Heptagon compliance, metacognitive feedback |
+| **Wisdom Gate** | `src/wisdom-gate.js` | Consent management for protected Kural access |
+| **ZK-Dissent Extensions** | `src/zk-dissent-ext.js` | Threshold revelation, anonymous voting |
+| **Privacy Vault** | `src/core/privacy-vault.js` | Access policies and audit logging |
+
+```javascript
+// GAUGE integration example
+import { registerVaultGaugeSubscriber } from 'vault-kit/src/gauge.js';
+registerVaultGaugeSubscriber(eventBus);
+```
+
+
 ```bash
 # Clone the repository
 git clone https://github.com/synthanai/vault-kit.git
