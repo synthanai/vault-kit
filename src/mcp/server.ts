@@ -118,7 +118,7 @@ server.tool(
             }
         }
 
-        await bridge.logAccess(vault_id, success, parsedContext);
+        await bridge.recordAccess(vault_id, success, parsedContext);
         return {
             content: [{
                 type: "text",

@@ -1,0 +1,77 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/synthanai/vault-kit/schemas/zk-dissent-payload.json",
+    "title": "ZK-Dissent Payload",
+    "description": "Example payload for Zero-Knowledge Dissent stored in Vault-Kit.",
+    "type": "object",
+    "properties": {
+        "dissent_id": {
+            "type": "string",
+            "description": "Unique identifier for the dissent, matching DMS DISSENT object.",
+            "example": "d-001"
+        },
+        "author_pseudonym": {
+            "type": "string",
+            "description": "Pseudonymous identifier for the dissenter (optional, for internal tracking).",
+            "example": "whistleblower-001"
+        },
+        "claim": {
+            "type": "string",
+            "description": "The full text of the dissent claim.",
+            "example": "I believe the proposed timeline underestimates integration risk by 50%."
+        },
+        "evidence": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Supporting evidence for the dissent.",
+            "example": [
+                "Prior project X took 6 weeks, not 3.",
+                "Email from vendor dated 2026-01-15 confirming dependency delay."
+            ]
+        },
+        "conditions_to_change_mind": {
+            "type": "string",
+            "description": "What would cause the dissenter to withdraw or modify their dissent.",
+            "example": "If integration completes within 3 weeks as planned."
+        },
+        "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of dissent submission (ISO 8601).",
+            "example": "2026-01-27T00:30:00Z"
+        },
+        "access_policy": {
+            "type": "object",
+            "properties": {
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Roles authorized to access the full content.",
+                    "example": [
+                        "legal",
+                        "hr",
+                        "board",
+                        "ceo"
+                    ]
+                },
+                "expiry": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the access policy expires (optional).",
+                    "example": "2027-01-27T00:00:00Z"
+                }
+            },
+            "description": "Access control policy for the vault content."
+        }
+    },
+    "required": [
+        "dissent_id",
+        "claim",
+        "submitted_at"
+    ],
+    "additionalProperties": true
+}

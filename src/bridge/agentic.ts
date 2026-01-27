@@ -47,7 +47,7 @@ export class AgenticBridge {
     /**
      * Log an access attempt (success or failure) to the immutable audit log.
      */
-    async logAccess(vaultId: string, success: boolean, context: any = {}): Promise<void> {
+    async recordAccess(vaultId: string, success: boolean, context: any = {}): Promise<void> {
         const response = await this.runPython({
             action: 'log_access',
             data: {

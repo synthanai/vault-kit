@@ -52,11 +52,17 @@ Vault-Kit exposes a **Privacy Sentinel** MCP Server:
 - **Tools**: `check_access(vault_id)`, `log_access(vault_id, success)`
 - **Resources**: `vault://audit/latest`
 - **Config**: Add `src/mcp/server.ts` to your Agent Client.
-```
+### Zero-Knowledge Dissent (DMS Integration)
+Vault-Kit powers the **ZK-Dissent** pattern for the [Decision Moment Standard (DMS)](../decision-moment-standard/README.md).
 
----
+> **The Problem**: You need to record a dissent (to satisfy MERIT), but the content is too sensitive for the main ledger.
+> **The Solution**: Store the hash in DMS. Store the content in Vault-Kit.
 
-## Quick Start
+1.  **DMS Record**: Contains `dissent_vault_ref: "vault://<id>/<hash>"`
+2.  **Vault Record**: Contains the full encrypted text.
+3.  **Verification**: Users can verify the hash matches without seeing the content (unless authorized).
+
+See [DMS Core Spec §4.3](../decision-moment-standard/spec/DMS_CORE_SPEC_v0.2.md) for details.
 
 ```bash
 # Clone the repository
