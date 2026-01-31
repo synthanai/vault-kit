@@ -26,7 +26,7 @@ Every interaction is governed by five non-negotiable properties:
 | Letter | Property | Meaning |
 |:------:|----------|---------|
 | **V** | Verified | Identity confirmed, step-up authentication |
-| **A** | Auditable | Append-only, hash-chained action log |
+| **A** | Auditable | Append-only, hash-chained action log (**Continuous Compliance Ledger**) |
 | **U** | Unleakable | Plane separation, no cross-plane access |
 | **L** | Limited | Bounded disclosure, no bulk export |
 | **T** | Traceable | Origin visible, revocation tracked |
