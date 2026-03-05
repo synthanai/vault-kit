@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="380" fill="white"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">VAULT-KIT: Privacy Protocol for Crisis Coordination</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#777">Verified, Auditable, Unleakable, Limited, Traceable</text>
+
+  <!-- ============ 3-LAYER ARCHITECTURE ============ -->
+
+  <!-- Layer 3 (top): Community Examples -->
+  <rect x="130" y="70" width="600" height="65" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="430" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565C0">Community Overlays</text>
+
+  <rect x="160" y="102" width="120" height="26" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
+  <text x="220" y="120" text-anchor="middle" font-size="10" fill="#555">Janazah (Muslim)</text>
+
+  <rect x="300" y="102" width="120" height="26" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
+  <text x="360" y="120" text-anchor="middle" font-size="10" fill="#555">Shiva (Jewish)</text>
+
+  <rect x="440" y="102" width="120" height="26" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
+  <text x="500" y="120" text-anchor="middle" font-size="10" fill="#555">Tangi (Pacific)</text>
+
+  <rect x="580" y="102" width="120" height="26" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
+  <text x="640" y="120" text-anchor="middle" font-size="10" fill="#555">+ Custom...</text>
+
+  <!-- Arrow down -->
+  <line x1="430" y1="135" x2="430" y2="152" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Layer 2 (middle): Coordination Protocol -->
+  <rect x="130" y="155" width="600" height="55" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1.5"/>
+  <text x="430" y="177" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">Coordination Protocol (Universal)</text>
+  <text x="430" y="198" text-anchor="middle" font-size="10" fill="#555">Tasks    Meals    Events    Booking    Comms    Donations</text>
+
+  <!-- Arrow down -->
+  <line x1="430" y1="210" x2="430" y2="228" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Layer 1 (bottom): VAULT Core -->
+  <rect x="130" y="230" width="600" height="70" rx="10" fill="#FFEBEE" stroke="#F44336" stroke-width="2"/>
+  <text x="430" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#C62828">VAULT Core (Immutable Privacy Infrastructure)</text>
+
+  <!-- 5 VAULT properties as pills -->
+  <rect x="155" y="265" width="90" height="24" rx="12" fill="white" stroke="#F44336" stroke-width="1"/>
+  <text x="200" y="282" text-anchor="middle" font-size="9" font-weight="bold" fill="#C62828">V: Verified</text>
+
+  <rect x="260" y="265" width="100" height="24" rx="12" fill="white" stroke="#F44336" stroke-width="1"/>
+  <text x="310" y="282" text-anchor="middle" font-size="9" font-weight="bold" fill="#C62828">A: Auditable</text>
+
+  <rect x="375" y="265" width="108" height="24" rx="12" fill="white" stroke="#F44336" stroke-width="1"/>
+  <text x="429" y="282" text-anchor="middle" font-size="9" font-weight="bold" fill="#C62828">U: Unleakable</text>
+
+  <rect x="498" y="265" width="90" height="24" rx="12" fill="white" stroke="#F44336" stroke-width="1"/>
+  <text x="543" y="282" text-anchor="middle" font-size="9" font-weight="bold" fill="#C62828">L: Limited</text>
+
+  <rect x="603" y="265" width="100" height="24" rx="12" fill="white" stroke="#F44336" stroke-width="1"/>
+  <text x="653" y="282" text-anchor="middle" font-size="9" font-weight="bold" fill="#C62828">T: Traceable</text>
+
+  <!-- ============ Side: ZK-Dissent ============ -->
+  <rect x="760" y="155" width="88" height="55" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="1.5"/>
+  <text x="804" y="178" text-anchor="middle" font-size="10" font-weight="bold" fill="#6A1B9A">ZK-Dissent</text>
+  <text x="804" y="194" text-anchor="middle" font-size="8" fill="#555">Hash in DMS</text>
+
+  <!-- Arrow from VAULT to ZK-Dissent -->
+  <line x1="730" y1="182" x2="758" y2="182" stroke="#7B1FA2" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ============ Legend ============ -->
+  <text x="430" y="326" text-anchor="middle" font-size="11" fill="#555">"Reveal less while helping more"</text>
+
+  <rect x="200" y="345" width="12" height="12" rx="2" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+  <text x="218" y="356" font-size="10" fill="#555">Community (customizable)</text>
+
+  <rect x="370" y="345" width="12" height="12" rx="2" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1"/>
+  <text x="388" y="356" font-size="10" fill="#555">Universal Protocol</text>
+
+  <rect x="530" y="345" width="12" height="12" rx="2" fill="#FFEBEE" stroke="#F44336" stroke-width="1"/>
+  <text x="548" y="356" font-size="10" fill="#555">Immutable Privacy Core</text>
+</svg>
